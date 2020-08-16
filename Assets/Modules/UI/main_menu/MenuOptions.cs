@@ -19,8 +19,8 @@ public class MenuOptions : MonoBehaviour
         transform.Find("Visible").Find("Confirmation").Find("Cancel").GetComponent<Button>().onClick.AddListener(CloseConfirmationWindow);
         transform.Find("Visible").Find("Confirmation").Find("Confirm").GetComponent<Button>().onClick.AddListener(() =>
         {
-            CloseConfirmationWindow();
-            ResetToDefaultsHandler();
+            CloseConfirmationWindow(); 
+            SettingsManager.singleton.ResetToDefaults();
         });
     }
 
@@ -41,8 +41,6 @@ public class MenuOptions : MonoBehaviour
     }
 
     public void ApplySettings() => SettingsManager.singleton.ApplySettings();
-    public void ResetToDefaultsHandler() => SettingsManager.singleton.ResetToDefaults();
-    public void ResetToDefaults() => CloseConfirmationWindow();
     public bool ConfirmationWindowVisible => singleton.transform.Find("Visible").Find("Confirmation").gameObject.activeSelf;
 
     public void OpenConfirmationWindow()

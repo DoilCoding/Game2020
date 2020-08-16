@@ -12,11 +12,6 @@ using Object = System.Object;
 
 public class SettingButtonBehaviour : MonoBehaviour
 {
-    private void Awake()
-    {
-        Initialize();
-    }
-
     private void DropDownHandler<T>(T current, [NotNull] Action<T> handler) where T : struct
     {
         var drop = transform.Find("Dropdown").GetComponent<Dropdown>();
@@ -57,7 +52,8 @@ public class SettingButtonBehaviour : MonoBehaviour
         });
     }
 
-    public void Initialize()
+
+    public void OnEnable()
     {
         switch (gameObject.name)
         {

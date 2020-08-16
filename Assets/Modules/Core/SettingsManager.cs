@@ -5,8 +5,6 @@ using UnityEngine;
 using UnityEngine.XR;
 using Object = UnityEngine.Object;
 
-
-// so once we change a value it'll change a value in RequestedPlayerConfiguration i suppose?
 public class SettingsManager : MonoBehaviour
 {
     public static Config CurrentPlayerConfiguration = new Config();
@@ -30,6 +28,6 @@ public class SettingsManager : MonoBehaviour
         RequestedPlayerConfiguration.resolution = Screen.resolutions[Screen.resolutions.Length - 1].ToString();
         RequestedPlayerConfiguration.Apply();
         foreach (var obj in (SettingButtonBehaviour[])FindObjectsOfType(typeof(SettingButtonBehaviour)))
-            obj.Initialize();
+            obj.OnEnable();
     }
 }

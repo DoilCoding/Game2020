@@ -5,8 +5,33 @@ using UnityEngine;
 using Console = Assets.Modules.Console.Console;
 
 [Serializable]
-public class Config
+public class Config : IEquatable<Config>
 {
+    public bool Equals(Config other)
+    {
+        return 
+             other.fullScreenMode == fullScreenMode ||
+             other.resolution == resolution ||
+             other.brightness == brightness ||
+             other.fieldOfView == fieldOfView ||
+             other.textureQuality == textureQuality ||
+             other.shadowquality == shadowquality ||
+             other.antiAliasing == antiAliasing ||
+             other.anisotropicFiltering == anisotropicFiltering ||
+             other.deviceMode == deviceMode ||
+             other.masterVolume == masterVolume ||
+             other.effectsVolume == effectsVolume ||
+             other.musicVolume == musicVolume ||
+             other.interfaceVolume == interfaceVolume ||
+             other.mouseLookSensitivity == mouseLookSensitivity ||
+             other.mouseAimSensitivity == mouseAimSensitivity ||
+             other.invertMouse == invertMouse ||
+             other.crouchMode == crouchMode ||
+             other.sprintMode == sprintMode ||
+             other.aimMode == aimMode
+            ;
+    }
+
     #region Graphics
     public FullScreenMode fullScreenMode = FullScreenMode.ExclusiveFullScreen;
     public string resolution;
@@ -209,8 +234,6 @@ public class Config
 
     public void Apply()
     {
-        var changesMade = false;
-
         Console.Log($"Config changes applied:");
 
         #region Graphics
@@ -222,49 +245,42 @@ public class Config
             var refresh = Convert.ToInt32(split[2]);
             Screen.SetResolution(width, height, fullScreenMode, refresh);
             Console.Log($"\tResolution: {SettingsManager.CurrentPlayerConfiguration.resolution} [{SettingsManager.CurrentPlayerConfiguration.fullScreenMode}] -> {resolution} [{fullScreenMode}]");
-            changesMade = true;
         }
 
         if (brightness != SettingsManager.CurrentPlayerConfiguration.brightness)
         {
             RenderSettings.ambientIntensity = brightness;
             Console.Log($"\tBrightness: {SettingsManager.CurrentPlayerConfiguration.brightness} -> {brightness}");
-            changesMade = true;
         }
 
         if (fieldOfView != SettingsManager.CurrentPlayerConfiguration.fieldOfView)
         {
             Camera.main.fieldOfView = fieldOfView;
             Console.Log($"\tField of View: {SettingsManager.CurrentPlayerConfiguration.fieldOfView} -> {fieldOfView}");
-            changesMade = true;
         }
 
         if (textureQuality != SettingsManager.CurrentPlayerConfiguration.textureQuality)
         {
             QualitySettings.masterTextureLimit = (int)textureQuality;
             Console.Log($"\tTexture Quality: {SettingsManager.CurrentPlayerConfiguration.textureQuality} -> {textureQuality}");
-            changesMade = true;
         }
 
         if (shadowquality != SettingsManager.CurrentPlayerConfiguration.shadowquality)
         {
             QualitySettings.shadows = shadowquality;
             Console.Log($"\tShadow Quality: {SettingsManager.CurrentPlayerConfiguration.shadowquality} -> {shadowquality}");
-            changesMade = true;
         }
 
         if (antiAliasing != SettingsManager.CurrentPlayerConfiguration.antiAliasing)
         {
             QualitySettings.antiAliasing = (int)antiAliasing;
             Console.Log($"\tantiAliasing: {SettingsManager.CurrentPlayerConfiguration.antiAliasing} -> {antiAliasing}");
-            changesMade = true;
         }
 
         if (anisotropicFiltering != SettingsManager.CurrentPlayerConfiguration.anisotropicFiltering)
         {
             QualitySettings.anisotropicFiltering = anisotropicFiltering;
             Console.Log($"\tAnisotropic Filtering: {SettingsManager.CurrentPlayerConfiguration.anisotropicFiltering} -> {anisotropicFiltering}");
-            changesMade = true;
         }
         #endregion
 
@@ -277,32 +293,27 @@ public class Config
             Enum.TryParse(SettingsManager.CurrentPlayerConfiguration.deviceMode.ToString(), out AudioSpeakerMode result);
             audioConfiguration.speakerMode = result;
             Console.Log($"\tDeviceMode: {SettingsManager.CurrentPlayerConfiguration.deviceMode} -> {deviceMode}");
-            changesMade = true;
         }
 
         if (masterVolume != SettingsManager.CurrentPlayerConfiguration.masterVolume)
         {
             AudioListener.volume = masterVolume;
             Console.Log($"\tMasterVolume: {SettingsManager.CurrentPlayerConfiguration.masterVolume} -> {masterVolume}");
-            changesMade = true;
         }
 
         if (effectsVolume != SettingsManager.CurrentPlayerConfiguration.effectsVolume)
         {
             Console.Log(new NotImplementedException());
-            changesMade = true;
         }
 
         if (musicVolume != SettingsManager.CurrentPlayerConfiguration.musicVolume)
         {
             Console.Log(new NotImplementedException());
-            changesMade = true;
         }
 
         if (interfaceVolume != SettingsManager.CurrentPlayerConfiguration.interfaceVolume)
         {
             Console.Log(new NotImplementedException());
-            changesMade = true;
         }
 
         AudioSettings.Reset(audioConfiguration);
@@ -312,4 +323,6 @@ public class Config
         Save();
         SettingsManager.CurrentPlayerConfiguration = Clone();
     }
+
+
 }
