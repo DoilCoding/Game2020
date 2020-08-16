@@ -10,24 +10,24 @@ public class Config : IEquatable<Config>
     public bool Equals(Config other)
     {
         return 
-             other.fullScreenMode == fullScreenMode ||
-             other.resolution == resolution ||
-             other.brightness == brightness ||
-             other.fieldOfView == fieldOfView ||
-             other.textureQuality == textureQuality ||
-             other.shadowquality == shadowquality ||
-             other.antiAliasing == antiAliasing ||
-             other.anisotropicFiltering == anisotropicFiltering ||
-             other.deviceMode == deviceMode ||
-             other.masterVolume == masterVolume ||
-             other.effectsVolume == effectsVolume ||
-             other.musicVolume == musicVolume ||
-             other.interfaceVolume == interfaceVolume ||
-             other.mouseLookSensitivity == mouseLookSensitivity ||
-             other.mouseAimSensitivity == mouseAimSensitivity ||
-             other.invertMouse == invertMouse ||
-             other.crouchMode == crouchMode ||
-             other.sprintMode == sprintMode ||
+             other.fullScreenMode == fullScreenMode &&
+             other.resolution == resolution &&
+             other.brightness == brightness &&
+             other.fieldOfView == fieldOfView &&
+             other.textureQuality == textureQuality &&
+             other.shadowquality == shadowquality &&
+             other.antiAliasing == antiAliasing &&
+             other.anisotropicFiltering == anisotropicFiltering &&
+             other.deviceMode == deviceMode &&
+             other.masterVolume == masterVolume &&
+             other.effectsVolume == effectsVolume &&
+             other.musicVolume == musicVolume &&
+             other.interfaceVolume == interfaceVolume &&
+             other.mouseLookSensitivity == mouseLookSensitivity &&
+             other.mouseAimSensitivity == mouseAimSensitivity &&
+             other.invertMouse == invertMouse &&
+             other.crouchMode == crouchMode &&
+             other.sprintMode == sprintMode &&
              other.aimMode == aimMode
             ;
     }
