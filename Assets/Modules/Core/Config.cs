@@ -228,8 +228,6 @@ public class Config : IEquatable<Config>
 
     public void Apply()
     {
-        Console.Log($"Config changes applied:");
-
         #region Graphics
         if (resolution != SettingsManager.CurrentPlayerConfiguration.resolution || fullScreenMode != SettingsManager.CurrentPlayerConfiguration.fullScreenMode)
         {
