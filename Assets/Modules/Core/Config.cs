@@ -147,20 +147,7 @@ public class Config : IEquatable<Config>
         //MasterVolume
         AudioListener.volume = SettingsManager.CurrentPlayerConfiguration.masterVolume * 0.01f;
 
-        //EffectsVolume
-        Console.Log(new NotImplementedException());
-
-        //MusicVolume
-        Console.Log(new NotImplementedException());
-
-        //InterfaceVolume
-        Console.Log(new NotImplementedException());
-
         AudioSettings.Reset(audioConfiguration);
-        #endregion
-
-        // not required?
-        #region Input
         #endregion
     }
 
