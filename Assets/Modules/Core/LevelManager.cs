@@ -44,10 +44,6 @@ public class LevelManager : MonoBehaviour
             {
                 await PerformSceneLoading(sceneName, cts.Token);
             }
-            catch
-            {
-                // ignored
-            }
             finally
             {
                 cts.Cancel();
