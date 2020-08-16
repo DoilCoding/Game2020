@@ -61,7 +61,6 @@ public class SettingButtonBehaviour : MonoBehaviour
     {
         switch (gameObject.name)
         {
-            #region Graphics
             case "FullScreen-mode":
                 DropDownHandler(SettingsManager.CurrentPlayerConfiguration.fullScreenMode, result =>
                     SettingsManager.RequestedPlayerConfiguration.fullScreenMode = result);
@@ -102,9 +101,6 @@ public class SettingButtonBehaviour : MonoBehaviour
                 DropDownHandler(SettingsManager.CurrentPlayerConfiguration.anisotropicFiltering, result =>
                     SettingsManager.RequestedPlayerConfiguration.anisotropicFiltering = result);
                 break;
-            #endregion
-
-            #region Audio
             case "Device Mode":
                 DropDownHandler(SettingsManager.CurrentPlayerConfiguration.deviceMode, result =>
                     SettingsManager.RequestedPlayerConfiguration.deviceMode = result);
@@ -126,24 +122,29 @@ public class SettingButtonBehaviour : MonoBehaviour
                     SettingsManager.RequestedPlayerConfiguration.interfaceVolume = result);
                 break;
             case "Mouse Look Sensitivity":
-
+                SliderHandler(SettingsManager.CurrentPlayerConfiguration.mouseLookSensitivity, result =>
+                    SettingsManager.RequestedPlayerConfiguration.mouseLookSensitivity = result);
                 break;
             case "Mouse Aim Sensitivity":
-
+                SliderHandler(SettingsManager.CurrentPlayerConfiguration.mouseAimSensitivity, result =>
+                    SettingsManager.RequestedPlayerConfiguration.mouseAimSensitivity = result);
                 break;
             case "Invert Mouse":
-
+                Console.Log(new NotImplementedException());
                 break;
             case "Crouch Mode":
-
+                DropDownHandler(SettingsManager.CurrentPlayerConfiguration.crouchMode, result =>
+                    SettingsManager.RequestedPlayerConfiguration.crouchMode = result);
                 break;
             case "Sprint Mode":
-
+                DropDownHandler(SettingsManager.CurrentPlayerConfiguration.sprintMode, result =>
+                    SettingsManager.RequestedPlayerConfiguration.sprintMode = result);
                 break;
             case "Aim Mode":
-
+                DropDownHandler(SettingsManager.CurrentPlayerConfiguration.aimMode, result =>
+                    SettingsManager.RequestedPlayerConfiguration.aimMode = result);
                 break;
-            #endregion
+
             default:
                 Console.Log($"<color=red>Method not implemented for '{gameObject.name}'</color>");
                 break;
