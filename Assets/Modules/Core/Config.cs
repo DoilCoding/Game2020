@@ -308,16 +308,6 @@ public class Config
         AudioSettings.Reset(audioConfiguration);
         #endregion
 
-        // this isnt necessary?
-        #region Input
-        #endregion
-        
-        if (!changesMade)
-        {
-            Console.Log("No changes were made");
-            return;
-        }
-
         Console.Log($"Changes saved at {Application.persistentDataPath + "/save.cfg"}");
         Save();
         SettingsManager.CurrentPlayerConfiguration = Clone();
