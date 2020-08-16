@@ -15,7 +15,7 @@ public class Config : IEquatable<Config>
              other.brightness == brightness &&
              other.fieldOfView == fieldOfView &&
              other.textureQuality == textureQuality &&
-             other.shadowquality == shadowquality &&
+             other.ShadowQuality == ShadowQuality &&
              other.antiAliasing == antiAliasing &&
              other.anisotropicFiltering == anisotropicFiltering &&
              other.deviceMode == deviceMode &&
@@ -39,7 +39,7 @@ public class Config : IEquatable<Config>
     public int fieldOfView = 75;
 
     public TextureQuality textureQuality = TextureQuality.Full;
-    public ShadowQuality shadowquality = ShadowQuality.All;
+    public ShadowQuality ShadowQuality = ShadowQuality.All;
     public AntiAliasing antiAliasing = AntiAliasing.Eight;
     public AnisotropicFiltering anisotropicFiltering = AnisotropicFiltering.Enable;
     public enum TextureQuality { Full, Half, Quarter, Eighth }
@@ -81,7 +81,7 @@ public class Config : IEquatable<Config>
             brightness = this.brightness,
             fieldOfView = this.fieldOfView,
             textureQuality = this.textureQuality,
-            shadowquality = this.shadowquality,
+            ShadowQuality = this.ShadowQuality,
             antiAliasing = this.antiAliasing,
             anisotropicFiltering = this.anisotropicFiltering,
 
@@ -128,7 +128,7 @@ public class Config : IEquatable<Config>
         QualitySettings.masterTextureLimit = (int)SettingsManager.CurrentPlayerConfiguration.textureQuality;
 
         // Shadow Quality
-        QualitySettings.shadows = SettingsManager.CurrentPlayerConfiguration.shadowquality;
+        QualitySettings.shadows = SettingsManager.CurrentPlayerConfiguration.ShadowQuality;
 
         // Anti Aliasing
         QualitySettings.antiAliasing = (int)SettingsManager.CurrentPlayerConfiguration.antiAliasing;
@@ -202,7 +202,7 @@ public class Config : IEquatable<Config>
                             $"Brightness: {result.brightness}\n" +
                             $"Field of View: {result.fieldOfView}\n" +
                             $"Texture Quality: {result.textureQuality}\n" +
-                            $"Shadow Quality: {result.shadowquality}\n" +
+                            $"Shadow Quality: {result.ShadowQuality}\n" +
                             $"AntiAliasing: {result.antiAliasing}\n" +
                             $"AnisotropicFiltering: {result.anisotropicFiltering}\n" +
                             "<color=purple>Audio Settings</color>\n" +
@@ -265,10 +265,10 @@ public class Config : IEquatable<Config>
             Console.Log($"\tTexture Quality: {SettingsManager.CurrentPlayerConfiguration.textureQuality} -> {textureQuality}");
         }
 
-        if (shadowquality != SettingsManager.CurrentPlayerConfiguration.shadowquality)
+        if (ShadowQuality != SettingsManager.CurrentPlayerConfiguration.ShadowQuality)
         {
-            QualitySettings.shadows = shadowquality;
-            Console.Log($"\tShadow Quality: {SettingsManager.CurrentPlayerConfiguration.shadowquality} -> {shadowquality}");
+            QualitySettings.shadows = ShadowQuality;
+            Console.Log($"\tShadow Quality: {SettingsManager.CurrentPlayerConfiguration.ShadowQuality} -> {ShadowQuality}");
         }
 
         if (antiAliasing != SettingsManager.CurrentPlayerConfiguration.antiAliasing)
