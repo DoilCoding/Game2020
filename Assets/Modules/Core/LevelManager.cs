@@ -44,12 +44,9 @@ public class LevelManager : MonoBehaviour
             {
                 await PerformSceneLoading(sceneName, cts.Token);
             }
-            catch (OperationCanceledException ex)
+            catch
             {
-                if (ex.CancellationToken == cts.Token)
-                {
-                    Console.Log("CTS token was canceled");
-                }
+                // ignored
             }
             finally
             {
@@ -72,7 +69,7 @@ public class LevelManager : MonoBehaviour
         if (token.IsCancellationRequested)
             return;
 
-        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(sceneName);
+        var asyncOperation = SceneManager.LoadSceneAsync(sceneName);
         asyncOperation.allowSceneActivation = false;
         while (true)
         {
@@ -83,11 +80,9 @@ public class LevelManager : MonoBehaviour
                 break;
         }
         asyncOperation.allowSceneActivation = true;
+        Console.Log($"{sceneName} has been loaded.");
         cts.Cancel();
         token.ThrowIfCancellationRequested();
-        if (token.IsCancellationRequested)
-            return;
-
     }
 
     public static LevelManager singleton { get; private set; }
