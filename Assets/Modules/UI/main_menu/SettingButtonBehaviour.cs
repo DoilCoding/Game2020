@@ -86,8 +86,8 @@ public class SettingButtonBehaviour : MonoBehaviour
                     SettingsManager.RequestedPlayerConfiguration.textureQuality = result);
                 break;
             case "Shadows":
-                DropDownHandler(SettingsManager.CurrentPlayerConfiguration.shadowquality, result =>
-                    SettingsManager.RequestedPlayerConfiguration.shadowquality = result);
+                DropDownHandler(SettingsManager.CurrentPlayerConfiguration.ShadowQuality, result =>
+                    SettingsManager.RequestedPlayerConfiguration.ShadowQuality = result);
                 break;
             case "Anti-Aliasing":
                 DropDownHandler(SettingsManager.CurrentPlayerConfiguration.antiAliasing, result =>
