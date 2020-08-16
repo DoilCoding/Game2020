@@ -64,6 +64,7 @@ public class LevelManager : MonoBehaviour
         }
     }
 
+
 #pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
     private async Task PerformSceneLoading(string sceneName, CancellationToken token)
 #pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
