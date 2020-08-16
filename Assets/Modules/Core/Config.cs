@@ -9,7 +9,7 @@ public class Config : IEquatable<Config>
 {
     public bool Equals(Config other)
     {
-        return 
+        return
              other.fullScreenMode == fullScreenMode &&
              other.resolution == resolution &&
              other.brightness == brightness &&
@@ -210,7 +210,14 @@ public class Config : IEquatable<Config>
                             $"Master Volume: {result.masterVolume}\n" +
                             $"Effects Volume: {result.effectsVolume}\n" +
                             $"Music Volume: {result.musicVolume}\n" +
-                            $"Interface Volume {result.interfaceVolume}");
+                            $"Interface Volume {result.interfaceVolume}\n" +
+                            "<color=purple>Input Settings</color>\n" +
+                            $"Mouse Look Sensitivity: {result.mouseLookSensitivity}\n" +
+                            $"Mouse Aim Sensitivity: {result.mouseAimSensitivity}\n" +
+                            $"Invert Mouse: {result.invertMouse}\n" +
+                            $"Crouch Mode: {result.crouchMode}\n" +
+                            $"Sprint Mode: {result.sprintMode}\n" +
+                            $"Aim Mode{result.aimMode}");
             }
         }
         catch (Exception ex)
