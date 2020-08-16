@@ -14,7 +14,7 @@ public class SettingButtonBehaviour : MonoBehaviour
 {
     private void Awake()
     {
-        Set();
+        Initialize();
     }
 
     private void DropDownHandler<T>(T current, [NotNull] Action<T> handler) where T : struct
@@ -29,11 +29,36 @@ public class SettingButtonBehaviour : MonoBehaviour
         });
     }
 
-    public void Set()
+    private void SliderHandler(float current, [NotNull] Action<float> handler)
     {
-        Dropdown drop = null;
-        Slider slider = null;
-        InputField input = null;
+        var slider = transform.Find("Slider").GetComponent<Slider>();
+        var input = transform.Find("InputField").GetComponent<InputField>();
+        slider.value = current;
+        input.text = $"{current}";
+
+        slider.onValueChanged.AddListener(result =>
+        {
+            result = Mathf.Clamp(result, slider.minValue, slider.maxValue);
+            input.text = $"{result}";
+            handler(result);
+        });
+
+        input.onEndEdit.AddListener(change =>
+        {
+            if (float.TryParse(change, out var result))
+            {
+                result = Mathf.Clamp(result, slider.minValue, slider.maxValue);
+                slider.value = result;
+                handler(result);
+                input.text = $"{result}";
+            }
+            else
+                input.text = $"{slider.value}";
+        });
+    }
+
+    public void Initialize()
+    {
         switch (gameObject.name)
         {
             #region Graphics
@@ -42,7 +67,7 @@ public class SettingButtonBehaviour : MonoBehaviour
                     SettingsManager.RequestedPlayerConfiguration.fullScreenMode = result);
                 break;
             case "Resolution":
-                drop = transform.Find("Dropdown").GetComponent<Dropdown>();
+                var drop = transform.Find("Dropdown").GetComponent<Dropdown>();
                 var refreshRate = Screen.currentResolution.refreshRate;
                 drop.options = Screen.resolutions.Where(x => x.refreshRate == refreshRate).Select(x => new Dropdown.OptionData($"{x.width} x {x.height}")).ToList();
                 drop.value = drop.options.IndexOf(drop.options.FirstOrDefault(x => $"{x.text} @ {refreshRate}Hz" == SettingsManager.CurrentPlayerConfiguration.resolution));
@@ -54,56 +79,12 @@ public class SettingButtonBehaviour : MonoBehaviour
                 });
                 break;
             case "Brightness":
-                slider = transform.Find("Slider").GetComponent<Slider>();
-                input = transform.Find("InputField").GetComponent<InputField>();
-                slider.value = SettingsManager.CurrentPlayerConfiguration.brightness;
-                input.text = $"{SettingsManager.CurrentPlayerConfiguration.brightness}";
-
-                slider.onValueChanged.AddListener(change =>
-                {
-                    change = Mathf.Clamp(change, slider.minValue, slider.maxValue);
-                    input.text = $"{change}";
-                    SettingsManager.RequestedPlayerConfiguration.brightness = change;
-                });
-
-                input.onEndEdit.AddListener(change =>
-                {
-                    if (float.TryParse(change, out var result))
-                    {
-                        result = Mathf.Clamp(result, slider.minValue, slider.maxValue);
-                        slider.value = result;
-                        SettingsManager.RequestedPlayerConfiguration.brightness = result;
-                        input.text = $"{result}";
-                    }
-                    else
-                        input.text = $"{slider.value}";
-                });
+                SliderHandler(SettingsManager.CurrentPlayerConfiguration.brightness, result =>
+                    SettingsManager.RequestedPlayerConfiguration.brightness = result);
                 break;
             case "Field of View":
-                slider = transform.Find("Slider").GetComponent<Slider>();
-                input = transform.Find("InputField").GetComponent<InputField>();
-                slider.value = SettingsManager.CurrentPlayerConfiguration.fieldOfView;
-                input.text = SettingsManager.CurrentPlayerConfiguration.fieldOfView.ToString();
-
-                slider.onValueChanged.AddListener(change =>
-                {
-                    change = Mathf.Clamp(change, slider.minValue, slider.maxValue);
-                    input.text = $"{change}";
-                    SettingsManager.RequestedPlayerConfiguration.fieldOfView = Convert.ToInt32(change);
-                });
-
-                input.onEndEdit.AddListener(change =>
-                {
-                    if (float.TryParse(change, out var result))
-                    {
-                        result = Mathf.Clamp(result, slider.minValue, slider.maxValue);
-                        slider.value = result;
-                        SettingsManager.RequestedPlayerConfiguration.fieldOfView = Convert.ToInt32(result);
-                        input.text = $"{result}";
-                    }
-                    else
-                        input.text = $"{slider.value}";
-                });
+                SliderHandler(SettingsManager.CurrentPlayerConfiguration.fieldOfView, result =>
+                    SettingsManager.RequestedPlayerConfiguration.fieldOfView = Convert.ToInt32(result));
                 break;
             case "Texture Quality":
                 DropDownHandler(SettingsManager.CurrentPlayerConfiguration.textureQuality, result =>
@@ -129,108 +110,20 @@ public class SettingButtonBehaviour : MonoBehaviour
                     SettingsManager.RequestedPlayerConfiguration.deviceMode = result);
                 break;
             case "Master Volume":
-                slider = transform.Find("Slider").GetComponent<Slider>();
-                input = transform.Find("InputField").GetComponent<InputField>();
-                slider.value = SettingsManager.CurrentPlayerConfiguration.masterVolume;
-                input.text = SettingsManager.CurrentPlayerConfiguration.masterVolume.ToString();
-
-                slider.onValueChanged.AddListener(change =>
-                {
-                    change = Mathf.Clamp(change, slider.minValue, slider.maxValue);
-                    input.text = $"{change}";
-                    SettingsManager.RequestedPlayerConfiguration.masterVolume = Convert.ToInt32(change);
-                });
-
-                input.onEndEdit.AddListener(change =>
-                {
-                    if (float.TryParse(change, out var result))
-                    {
-                        result = Mathf.Clamp(result, slider.minValue, slider.maxValue);
-                        slider.value = result;
-                        SettingsManager.RequestedPlayerConfiguration.masterVolume = Convert.ToInt32(result);
-                        input.text = $"{result}";
-                    }
-                    else
-                        input.text = $"{slider.value}";
-                });
+                SliderHandler(SettingsManager.CurrentPlayerConfiguration.masterVolume, result =>
+                    SettingsManager.RequestedPlayerConfiguration.masterVolume = result);
                 break;
             case "Effects Volume":
-                slider = transform.Find("Slider").GetComponent<Slider>();
-                input = transform.Find("InputField").GetComponent<InputField>();
-                slider.value = SettingsManager.CurrentPlayerConfiguration.effectsVolume;
-                input.text = SettingsManager.CurrentPlayerConfiguration.effectsVolume.ToString();
-
-                slider.onValueChanged.AddListener(change =>
-                {
-                    change = Mathf.Clamp(change, slider.minValue, slider.maxValue);
-                    input.text = $"{change}";
-                    SettingsManager.RequestedPlayerConfiguration.effectsVolume = Convert.ToInt32(change);
-                });
-
-                input.onEndEdit.AddListener(change =>
-                {
-                    if (float.TryParse(change, out var result))
-                    {
-                        result = Mathf.Clamp(result, slider.minValue, slider.maxValue);
-                        slider.value = result;
-                        SettingsManager.RequestedPlayerConfiguration.effectsVolume = Convert.ToInt32(result);
-                        input.text = $"{result}";
-                    }
-                    else
-                        input.text = $"{slider.value}";
-                });
+                SliderHandler(SettingsManager.CurrentPlayerConfiguration.effectsVolume, result =>
+                    SettingsManager.RequestedPlayerConfiguration.effectsVolume = result);
                 break;
             case "Music Volume":
-                slider = transform.Find("Slider").GetComponent<Slider>();
-                input = transform.Find("InputField").GetComponent<InputField>();
-                slider.value = SettingsManager.CurrentPlayerConfiguration.musicVolume;
-                input.text = SettingsManager.CurrentPlayerConfiguration.musicVolume.ToString();
-
-                slider.onValueChanged.AddListener(change =>
-                {
-                    change = Mathf.Clamp(change, slider.minValue, slider.maxValue);
-                    input.text = $"{change}";
-                    SettingsManager.RequestedPlayerConfiguration.musicVolume = Convert.ToInt32(change);
-                });
-
-                input.onEndEdit.AddListener(change =>
-                {
-                    if (float.TryParse(change, out var result))
-                    {
-                        result = Mathf.Clamp(result, slider.minValue, slider.maxValue);
-                        slider.value = result;
-                        SettingsManager.RequestedPlayerConfiguration.musicVolume = Convert.ToInt32(result);
-                        input.text = $"{result}";
-                    }
-                    else
-                        input.text = $"{slider.value}";
-                });
+                SliderHandler(SettingsManager.CurrentPlayerConfiguration.musicVolume, result =>
+                    SettingsManager.RequestedPlayerConfiguration.musicVolume = result);
                 break;
             case "Interface Volume":
-                slider = transform.Find("Slider").GetComponent<Slider>();
-                input = transform.Find("InputField").GetComponent<InputField>();
-                slider.value = SettingsManager.CurrentPlayerConfiguration.interfaceVolume;
-                input.text = SettingsManager.CurrentPlayerConfiguration.interfaceVolume.ToString();
-
-                slider.onValueChanged.AddListener(change =>
-                {
-                    change = Mathf.Clamp(change, slider.minValue, slider.maxValue);
-                    input.text = $"{change}";
-                    SettingsManager.RequestedPlayerConfiguration.interfaceVolume = Convert.ToInt32(change);
-                });
-
-                input.onEndEdit.AddListener(change =>
-                {
-                    if (float.TryParse(change, out var result))
-                    {
-                        result = Mathf.Clamp(result, slider.minValue, slider.maxValue);
-                        slider.value = result;
-                        SettingsManager.RequestedPlayerConfiguration.interfaceVolume = Convert.ToInt32(result);
-                        input.text = $"{result}";
-                    }
-                    else
-                        input.text = $"{slider.value}";
-                });
+                SliderHandler(SettingsManager.CurrentPlayerConfiguration.interfaceVolume, result =>
+                    SettingsManager.RequestedPlayerConfiguration.interfaceVolume = result);
                 break;
             case "Mouse Look Sensitivity":
 

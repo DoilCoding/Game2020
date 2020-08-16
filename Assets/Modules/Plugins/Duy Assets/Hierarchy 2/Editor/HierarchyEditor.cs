@@ -1751,7 +1751,7 @@ namespace Hierarchy2
             [MenuItem("GameObject/Lock Selection %l", false, priority)]
             static void SetNotEditableObject()
             {
-                Undo.RegisterCompleteObjectUndo(Selection.gameObjects, "Set Selections Flag NotEditable");
+                Undo.RegisterCompleteObjectUndo(Selection.gameObjects, "Initialize Selections Flag NotEditable");
                 for (int i = 0; i < Selection.gameObjects.Length; ++i)
                 {
                     Selection.gameObjects[i].hideFlags = HideFlags.NotEditable;
@@ -1765,7 +1765,7 @@ namespace Hierarchy2
             [MenuItem("GameObject/Unlock Selection %&l", false, priority)]
             static void SetEditableObject()
             {
-                Undo.RegisterCompleteObjectUndo(Selection.gameObjects, "Set Selections Flag Editable");
+                Undo.RegisterCompleteObjectUndo(Selection.gameObjects, "Initialize Selections Flag Editable");
                 for (int i = 0; i < Selection.gameObjects.Length; ++i)
                 {
                     Selection.gameObjects[i].hideFlags = HideFlags.None;

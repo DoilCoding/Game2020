@@ -30,6 +30,6 @@ public class SettingsManager : MonoBehaviour
         RequestedPlayerConfiguration.resolution = Screen.resolutions[Screen.resolutions.Length - 1].ToString();
         RequestedPlayerConfiguration.Apply();
         foreach (var obj in (SettingButtonBehaviour[])FindObjectsOfType(typeof(SettingButtonBehaviour)))
-            obj.Set();
+            obj.Initialize();
     }
 }
