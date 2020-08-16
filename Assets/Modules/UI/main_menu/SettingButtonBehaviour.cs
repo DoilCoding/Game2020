@@ -126,7 +126,10 @@ public class SettingButtonBehaviour : MonoBehaviour
                     SettingsManager.RequestedPlayerConfiguration.mouseAimSensitivity = result);
                 break;
             case "Invert Mouse":
-                Console.Log(new NotImplementedException());
+                var toggle = transform.Find("Toggle").GetComponent<Toggle>();
+                toggle.isOn = SettingsManager.CurrentPlayerConfiguration.invertMouse;
+                toggle.onValueChanged.AddListener(result =>
+                    SettingsManager.RequestedPlayerConfiguration.invertMouse = result);
                 break;
             case "Crouch Mode":
                 DropDownHandler(SettingsManager.CurrentPlayerConfiguration.crouchMode, result =>
@@ -140,7 +143,6 @@ public class SettingButtonBehaviour : MonoBehaviour
                 DropDownHandler(SettingsManager.CurrentPlayerConfiguration.aimMode, result =>
                     SettingsManager.RequestedPlayerConfiguration.aimMode = result);
                 break;
-
             default:
                 Console.Log($"<color=red>Method not implemented for '{gameObject.name}'</color>");
                 break;
