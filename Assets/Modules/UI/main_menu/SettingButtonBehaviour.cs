@@ -40,16 +40,6 @@ public class SettingButtonBehaviour : MonoBehaviour
             case "FullScreen-mode":
                 DropDownHandler(SettingsManager.CurrentPlayerConfiguration.fullScreenMode, result =>
                     SettingsManager.RequestedPlayerConfiguration.fullScreenMode = result);
-                //drop = transform.Find("Dropdown").GetComponent<Dropdown>();
-                //drop.options = Enum.GetNames(typeof(FullScreenMode)).ToList().Select(x => new Dropdown.OptionData(x)).ToList();
-                //drop.value = drop.options.IndexOf(drop.options.FirstOrDefault(x => x.text == SettingsManager.CurrentPlayerConfiguration.fullScreenMode.ToString()));
-
-                //drop.onValueChanged.AddListener(changed =>
-                //{
-                //    Enum.TryParse(Enum.GetName(typeof(FullScreenMode), changed), true, out FullScreenMode result);
-                //    SettingsManager.RequestedPlayerConfiguration.fullScreenMode = result;
-                //});
-
                 break;
             case "Resolution":
                 drop = transform.Find("Dropdown").GetComponent<Dropdown>();
@@ -116,54 +106,18 @@ public class SettingButtonBehaviour : MonoBehaviour
                 });
                 break;
             case "Texture Quality":
-                //drop = transform.Find("Dropdown").GetComponent<Dropdown>();
-                //drop.options = Enum.GetNames(typeof(Config.TextureQuality)).ToList().Select(x => new Dropdown.OptionData(x)).ToList();
-                //drop.value = drop.options.IndexOf(drop.options.FirstOrDefault(x => x.text == SettingsManager.CurrentPlayerConfiguration.textureQuality.ToString()));
-
-                //drop.onValueChanged.AddListener(changed =>
-                //{
-                //    Enum.TryParse(Enum.GetName(typeof(Config.TextureQuality), changed), true, out Config.TextureQuality result);
-                //    SettingsManager.RequestedPlayerConfiguration.textureQuality = result;
-                //});
                 DropDownHandler(SettingsManager.CurrentPlayerConfiguration.textureQuality, result =>
                     SettingsManager.RequestedPlayerConfiguration.textureQuality = result);
                 break;
             case "Shadows":
-                //drop = transform.Find("Dropdown").GetComponent<Dropdown>();
-                //drop.options = Enum.GetNames(typeof(ShadowQuality)).ToList().Select(x => new Dropdown.OptionData(x)).ToList();
-                //drop.value = drop.options.IndexOf(drop.options.FirstOrDefault(x => x.text == SettingsManager.CurrentPlayerConfiguration.shadowquality.ToString()));
-
-                //drop.onValueChanged.AddListener(changed =>
-                //{
-                //    Enum.TryParse(Enum.GetName(typeof(ShadowQuality), changed), true, out ShadowQuality result);
-                //    SettingsManager.RequestedPlayerConfiguration.shadowquality = result;
-                //});
                 DropDownHandler(SettingsManager.CurrentPlayerConfiguration.shadowquality, result =>
                     SettingsManager.RequestedPlayerConfiguration.shadowquality = result);
                 break;
             case "Anti-Aliasing":
-                //drop = transform.Find("Dropdown").GetComponent<Dropdown>();
-                //drop.options = Enum.GetNames(typeof(Config.AntiAliasing)).ToList().Select(x => new Dropdown.OptionData(x)).ToList();
-                //drop.value = drop.options.IndexOf(drop.options.FirstOrDefault(x => x.text == SettingsManager.CurrentPlayerConfiguration.antiAliasing.ToString()));
-
-                //drop.onValueChanged.AddListener(changed =>
-                //{
-                //    Enum.TryParse(Enum.GetName(typeof(Config.AntiAliasing), changed), true, out Config.AntiAliasing result);
-                //    SettingsManager.RequestedPlayerConfiguration.antiAliasing = result;
-                //});
                 DropDownHandler(SettingsManager.CurrentPlayerConfiguration.antiAliasing, result =>
                     SettingsManager.RequestedPlayerConfiguration.antiAliasing = result);
                 break;
             case "Anisotropic Filtering":
-                //drop = transform.Find("Dropdown").GetComponent<Dropdown>();
-                //drop.options = Enum.GetNames(typeof(AnisotropicFiltering)).ToList().Select(x => new Dropdown.OptionData(x)).ToList();
-                //drop.value = drop.options.IndexOf(drop.options.FirstOrDefault(x => x.text == SettingsManager.CurrentPlayerConfiguration.anisotropicFiltering.ToString()));
-
-                //drop.onValueChanged.AddListener(changed =>
-                //{
-                //    Enum.TryParse(Enum.GetName(typeof(AnisotropicFiltering), changed), true, out AnisotropicFiltering result);
-                //    SettingsManager.RequestedPlayerConfiguration.anisotropicFiltering = result;
-                //});
                 DropDownHandler(SettingsManager.CurrentPlayerConfiguration.anisotropicFiltering, result =>
                     SettingsManager.RequestedPlayerConfiguration.anisotropicFiltering = result);
                 break;
@@ -171,15 +125,6 @@ public class SettingButtonBehaviour : MonoBehaviour
 
             #region Audio
             case "Device Mode":
-                //drop = transform.Find("Dropdown").GetComponent<Dropdown>();
-                //drop.options = Enum.GetNames(typeof(Config.AudioDeviceMode)).ToList().Where(x => !x.Contains("Raw")).Select(x => new Dropdown.OptionData(x)).ToList();
-                //drop.value = drop.options.IndexOf(drop.options.FirstOrDefault(x => x.text == SettingsManager.CurrentPlayerConfiguration.deviceMode.ToString()));
-
-                //drop.onValueChanged.AddListener(changed =>
-                //{
-                //    Enum.TryParse(Enum.GetName(typeof(Config.AudioDeviceMode), changed), true, out Config.AudioDeviceMode result);
-                //    SettingsManager.RequestedPlayerConfiguration.deviceMode = result;
-                //});
                 DropDownHandler(SettingsManager.CurrentPlayerConfiguration.deviceMode, result =>
                     SettingsManager.RequestedPlayerConfiguration.deviceMode = result);
                 break;
