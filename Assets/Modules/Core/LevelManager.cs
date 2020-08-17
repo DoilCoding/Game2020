@@ -78,7 +78,7 @@ public class LevelManager : MonoBehaviour
         asyncOperation.allowSceneActivation = true;
         Console.Log($"{sceneName} has been loaded.");
         cts.Cancel();
-        token.ThrowIfCancellationRequested();
+        //token.ThrowIfCancellationRequested();
     }
 
     public static LevelManager singleton { get; private set; }

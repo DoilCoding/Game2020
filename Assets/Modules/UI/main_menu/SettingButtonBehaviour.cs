@@ -9,7 +9,7 @@ using UnityEngine.UI;
 using Console = Assets.Modules.Console.Console;
 using Object = System.Object;
 
-
+//TODO: keybindings -- we can try Parse a key to a keycode.
 public class SettingButtonBehaviour : MonoBehaviour
 {
     private void DropDownHandler<T>(T current, [NotNull] Action<T> handler) where T : struct
