@@ -23,7 +23,6 @@ public struct Keybinding
 
 public class InputManager : MonoBehaviour
 {
-
     public static readonly Dictionary<Keybinding.ActionType, Keybinding> Actions = new Dictionary<Keybinding.ActionType, Keybinding>
         {
             {Keybinding.ActionType.forward, new Keybinding {Primary = KeyCode.W, Secondary = KeyCode.UpArrow}},
@@ -94,6 +93,8 @@ public class InputManager : MonoBehaviour
             {
                 if (MenuOptions.singleton.ConfirmationWindowVisible)
                     MenuOptions.singleton.CloseConfirmationWindow();
+                else if(MenuOptions.singleton.RebindWindowVisible)
+                    MenuOptions.singleton.CloseRebindingWindow();
                 else
                     MenuOptions.singleton.ToggleMenuCanvas();
             }
