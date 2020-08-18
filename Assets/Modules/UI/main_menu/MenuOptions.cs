@@ -43,9 +43,13 @@ public class MenuOptions : MonoBehaviour
     public void ApplySettings() => SettingsManager.singleton.ApplySettings();
     public bool ConfirmationWindowVisible => singleton.transform.Find("Visible").Find("Confirmation").gameObject.activeSelf;
     public bool RebindWindowVisible => singleton.transform.Find("Visible").Find("Rebinding").gameObject.activeSelf;
-
-    public void OpenRebindingWindow()
+    
+    //TODO: implement
+    public void OpenRebindingWindow(Transform target)
     {
+        var keyBindingName = target.parent.name;
+        // listen for input https://forum.unity.com/threads/waiting-for-input-in-a-custom-function.474387/
+
         var self = singleton.transform.Find("Visible").Find("Rebinding").gameObject;
         self.SetActive(true);
     }
