@@ -93,9 +93,7 @@ public class InputManager : MonoBehaviour
             {
                 if (MenuOptions.singleton.ConfirmationWindowVisible)
                     MenuOptions.singleton.CloseConfirmationWindow();
-                else if(MenuOptions.singleton.RebindWindowVisible)
-                    MenuOptions.CloseRebindingWindow();
-                else
+                else if(!MenuOptions.singleton.RebindWindowVisible)
                     MenuOptions.singleton.ToggleMenuCanvas();
             }
         }

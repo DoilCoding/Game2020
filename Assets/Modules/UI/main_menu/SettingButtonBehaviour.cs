@@ -52,6 +52,17 @@ public class SettingButtonBehaviour : MonoBehaviour
         });
     }
 
+    private void keybinderHandler()
+    {
+        var primary = transform.Find("Primary");
+        var secondary = transform.Find("Secondary");
+
+        primary.GetComponent<Button>().onClick.AddListener(() =>
+            MenuOptions.singleton.ListenForInput(primary));
+        secondary.GetComponent<Button>().onClick.AddListener(() =>
+            MenuOptions.singleton.ListenForInput(secondary));
+    }
+
 
     public void OnEnable()
     {
@@ -144,13 +155,22 @@ public class SettingButtonBehaviour : MonoBehaviour
                     SettingsManager.RequestedPlayerConfiguration.aimMode = result);
                 break;
             case "Forward":
-                var primary = transform.Find("Primary");
-                var secondary = transform.Find("Secondary");
-
-                primary.GetComponent<Button>().onClick.AddListener(() =>
-                    MenuOptions.singleton.ListenForInput(primary));
-                secondary.GetComponent<Button>().onClick.AddListener(() =>
-                    MenuOptions.singleton.ListenForInput(secondary));
+                keybinderHandler();
+                break;
+            case "Left":
+                keybinderHandler();
+                break;
+            case "Back":
+                keybinderHandler();
+                break;
+            case "Right":
+                keybinderHandler();
+                break;
+            case "Jump":
+                keybinderHandler();
+                break;
+            case "Crouch":
+                keybinderHandler();
                 break;
             default:
                 Console.Log($"<color=red>Method not implemented for '{gameObject.name}'</color>");

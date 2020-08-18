@@ -68,20 +68,24 @@ public class MenuOptions : MonoBehaviour
             foreach (KeyCode key in Enum.GetValues(typeof(KeyCode)))
             {
                 if (!Input.GetKey(key) || key == KeyCode.None) continue;
-                if (Input.GetKey(KeyCode.BackQuote) || Input.GetKey(KeyCode.Escape))
+                if (Input.GetKey(KeyCode.BackQuote))
                 {
                     done = true;
                     CloseRebindingWindow();
                     break;
                 }
 
-                if (!Enum.TryParse(parent.name, true, out Keybinding.ActionType result)) continue;
+                var _key = key;
+                if (Input.GetKey(KeyCode.Escape))
+                    _key = KeyCode.None;
+
+                    if (!Enum.TryParse(parent.name, true, out Keybinding.ActionType result)) continue;
 
                 if (self.name == "Primary")
-                    InputManager.Actions[result] = new Keybinding { Primary = key, Secondary = InputManager.Actions[result].Secondary};
+                    InputManager.Actions[result] = new Keybinding { Primary = _key, Secondary = InputManager.Actions[result].Secondary};
                 else
-                    InputManager.Actions[result] = new Keybinding { Primary = InputManager.Actions[result].Primary, Secondary = key};
-                self.Find("Text").GetComponent<Text>().text = $"{key}";
+                    InputManager.Actions[result] = new Keybinding { Primary = InputManager.Actions[result].Primary, Secondary = _key};
+                self.Find("Text").GetComponent<Text>().text = $"{_key}";
                 done = true;
                 CloseRebindingWindow();
                 break;
