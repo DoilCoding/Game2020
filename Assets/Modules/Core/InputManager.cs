@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Console = Assets.Modules.Console.Console;
 
+[Serializable]
 public struct Keybinding
 {
     public KeyCode Primary;
@@ -48,41 +49,6 @@ public class InputManager : MonoBehaviour
 
     public void Update()
     {
-        if (GetKeyDown(Keybinding.ActionType.forward))
-        {
-            Console.Log(new NotImplementedException());
-        }
-
-        if (GetKeyDown(Keybinding.ActionType.left))
-        {
-            Console.Log(new NotImplementedException());
-        }
-
-        if (GetKeyDown(Keybinding.ActionType.right))
-        {
-            Console.Log(new NotImplementedException());
-        }
-
-        if (GetKeyDown(Keybinding.ActionType.back))
-        {
-            Console.Log(new NotImplementedException());
-        }
-
-        if (GetKeyDown(Keybinding.ActionType.jump))
-        {
-            Console.Log(new NotImplementedException());
-        }
-
-        if (GetKeyDown(Keybinding.ActionType.crouch))
-        {
-            Console.Log(new NotImplementedException());
-        }
-
-        if (GetKeyDown(Keybinding.ActionType.reload))
-        {
-            Console.Log(new NotImplementedException());
-        }
-
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (Console.IsVisible)

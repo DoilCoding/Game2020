@@ -1,18 +1,13 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
-using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.UI;
 using Console = Assets.Modules.Console.Console;
-using Object = System.Object;
 
-//TODO: keybindings -- we can try Parse a key to a keycode.
+//TODO: implement saving keybindings
 public class SettingButtonBehaviour : MonoBehaviour
 {
-    private void DropDownHandler<T>(T current, [NotNull] Action<T> handler) where T : struct
+    private void DropDownHandler<T>(T current, Action<T> handler) where T : struct
     {
         var drop = transform.Find("Dropdown").GetComponent<Dropdown>();
         drop.options = Enum.GetNames(typeof(T)).ToList().Select(x => new Dropdown.OptionData(x)).ToList();
@@ -24,7 +19,7 @@ public class SettingButtonBehaviour : MonoBehaviour
         });
     }
 
-    private void SliderHandler(float current, [NotNull] Action<float> handler)
+    private void SliderHandler(float current, Action<float> handler)
     {
         var slider = transform.Find("Slider").GetComponent<Slider>();
         var input = transform.Find("InputField").GetComponent<InputField>();
@@ -52,7 +47,7 @@ public class SettingButtonBehaviour : MonoBehaviour
         });
     }
 
-    private void keybinderHandler()
+    private void KeyBindingHandler()
     {
         var primary = transform.Find("Primary");
         var secondary = transform.Find("Secondary");
@@ -137,9 +132,9 @@ public class SettingButtonBehaviour : MonoBehaviour
                     SettingsManager.RequestedPlayerConfiguration.mouseAimSensitivity = result);
                 break;
             case "Invert Mouse":
-                var toggle = transform.Find("Toggle").GetComponent<Toggle>();
-                toggle.isOn = SettingsManager.CurrentPlayerConfiguration.invertMouse;
-                toggle.onValueChanged.AddListener(result =>
+                var _ = transform.Find("Toggle").GetComponent<Toggle>();
+                _.isOn = SettingsManager.CurrentPlayerConfiguration.invertMouse;
+                _.onValueChanged.AddListener(result =>
                     SettingsManager.RequestedPlayerConfiguration.invertMouse = result);
                 break;
             case "Crouch Mode":
@@ -155,22 +150,22 @@ public class SettingButtonBehaviour : MonoBehaviour
                     SettingsManager.RequestedPlayerConfiguration.aimMode = result);
                 break;
             case "Forward":
-                keybinderHandler();
+                KeyBindingHandler();
                 break;
             case "Left":
-                keybinderHandler();
+                KeyBindingHandler();
                 break;
             case "Back":
-                keybinderHandler();
+                KeyBindingHandler();
                 break;
             case "Right":
-                keybinderHandler();
+                KeyBindingHandler();
                 break;
             case "Jump":
-                keybinderHandler();
+                KeyBindingHandler();
                 break;
             case "Crouch":
-                keybinderHandler();
+                KeyBindingHandler();
                 break;
             default:
                 Console.Log($"<color=red>Method not implemented for '{gameObject.name}'</color>");

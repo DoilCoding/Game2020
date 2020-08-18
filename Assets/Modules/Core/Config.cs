@@ -69,7 +69,6 @@ public class Config : IEquatable<Config>
     {
         if (!File.Exists(Application.persistentDataPath + "/save.cfg")) return;
         File.Delete(Application.persistentDataPath + "/save.cfg");
-        //Console.Log($"<color=red>Deleted</color> the Config at {Application.persistentDataPath + "/save.cfg"}");
     }
 
     public Config Clone()
@@ -236,44 +235,25 @@ public class Config : IEquatable<Config>
             var height = Convert.ToInt32(split[1]);
             var refresh = Convert.ToInt32(split[2]);
             Screen.SetResolution(width, height, fullScreenMode, refresh);
-            Console.Log($"\tResolution: {SettingsManager.CurrentPlayerConfiguration.resolution} [{SettingsManager.CurrentPlayerConfiguration.fullScreenMode}] -> {resolution} [{fullScreenMode}]");
         }
 
         if (brightness != SettingsManager.CurrentPlayerConfiguration.brightness)
-        {
             RenderSettings.ambientIntensity = brightness;
-            Console.Log($"\tBrightness: {SettingsManager.CurrentPlayerConfiguration.brightness} -> {brightness}");
-        }
 
         if (fieldOfView != SettingsManager.CurrentPlayerConfiguration.fieldOfView)
-        {
             Camera.main.fieldOfView = fieldOfView;
-            Console.Log($"\tField of View: {SettingsManager.CurrentPlayerConfiguration.fieldOfView} -> {fieldOfView}");
-        }
 
         if (textureQuality != SettingsManager.CurrentPlayerConfiguration.textureQuality)
-        {
             QualitySettings.masterTextureLimit = (int)textureQuality;
-            Console.Log($"\tTexture Quality: {SettingsManager.CurrentPlayerConfiguration.textureQuality} -> {textureQuality}");
-        }
 
         if (ShadowQuality != SettingsManager.CurrentPlayerConfiguration.ShadowQuality)
-        {
             QualitySettings.shadows = ShadowQuality;
-            Console.Log($"\tShadow Quality: {SettingsManager.CurrentPlayerConfiguration.ShadowQuality} -> {ShadowQuality}");
-        }
 
         if (antiAliasing != SettingsManager.CurrentPlayerConfiguration.antiAliasing)
-        {
             QualitySettings.antiAliasing = (int)antiAliasing;
-            Console.Log($"\tantiAliasing: {SettingsManager.CurrentPlayerConfiguration.antiAliasing} -> {antiAliasing}");
-        }
 
         if (anisotropicFiltering != SettingsManager.CurrentPlayerConfiguration.anisotropicFiltering)
-        {
             QualitySettings.anisotropicFiltering = anisotropicFiltering;
-            Console.Log($"\tAnisotropic Filtering: {SettingsManager.CurrentPlayerConfiguration.anisotropicFiltering} -> {anisotropicFiltering}");
-        }
         #endregion
 
 
@@ -284,29 +264,19 @@ public class Config : IEquatable<Config>
         {
             Enum.TryParse(SettingsManager.CurrentPlayerConfiguration.deviceMode.ToString(), out AudioSpeakerMode result);
             audioConfiguration.speakerMode = result;
-            Console.Log($"\tDeviceMode: {SettingsManager.CurrentPlayerConfiguration.deviceMode} -> {deviceMode}");
         }
 
         if (masterVolume != SettingsManager.CurrentPlayerConfiguration.masterVolume)
-        {
             AudioListener.volume = masterVolume;
-            Console.Log($"\tMasterVolume: {SettingsManager.CurrentPlayerConfiguration.masterVolume} -> {masterVolume}");
-        }
 
         if (effectsVolume != SettingsManager.CurrentPlayerConfiguration.effectsVolume)
-        {
             Console.Log(new NotImplementedException());
-        }
 
         if (musicVolume != SettingsManager.CurrentPlayerConfiguration.musicVolume)
-        {
             Console.Log(new NotImplementedException());
-        }
 
         if (interfaceVolume != SettingsManager.CurrentPlayerConfiguration.interfaceVolume)
-        {
             Console.Log(new NotImplementedException());
-        }
 
         AudioSettings.Reset(audioConfiguration);
         #endregion

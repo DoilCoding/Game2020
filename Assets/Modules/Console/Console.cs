@@ -10,6 +10,7 @@ using Debug = UnityEngine.Debug;
 
 namespace Assets.Modules.Console
 {
+    //TODO: redo the ui elements with the new knowledge we got.
     //TODO: optimize, disable objects when not on screen.
     //TODO: Console.SetOut
     public class Console : MonoBehaviour
