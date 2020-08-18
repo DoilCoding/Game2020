@@ -143,6 +143,15 @@ public class SettingButtonBehaviour : MonoBehaviour
                 DropDownHandler(SettingsManager.CurrentPlayerConfiguration.aimMode, result =>
                     SettingsManager.RequestedPlayerConfiguration.aimMode = result);
                 break;
+            case "Forward":
+                var primary = transform.Find("Primary");
+                var secondary = transform.Find("Secondary");
+
+                primary.GetComponent<Button>().onClick.AddListener(() =>
+                    MenuOptions.singleton.ListenForInput(primary));
+                secondary.GetComponent<Button>().onClick.AddListener(() =>
+                    MenuOptions.singleton.ListenForInput(secondary));
+                break;
             default:
                 Console.Log($"<color=red>Method not implemented for '{gameObject.name}'</color>");
                 break;

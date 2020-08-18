@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
@@ -43,18 +44,53 @@ public class MenuOptions : MonoBehaviour
     public void ApplySettings() => SettingsManager.singleton.ApplySettings();
     public bool ConfirmationWindowVisible => singleton.transform.Find("Visible").Find("Confirmation").gameObject.activeSelf;
     public bool RebindWindowVisible => singleton.transform.Find("Visible").Find("Rebinding").gameObject.activeSelf;
-    
-    //TODO: implement
-    public void OpenRebindingWindow(Transform target)
-    {
-        var keyBindingName = target.parent.name;
-        // listen for input https://forum.unity.com/threads/waiting-for-input-in-a-custom-function.474387/
 
+    public void ListenForInput(Transform target)
+    {
+        OpenRebindingWindow();
+        StartCoroutine(ListenForInputHandler(target));
+    }
+
+    public void OpenRebindingWindow()
+    {
         var self = singleton.transform.Find("Visible").Find("Rebinding").gameObject;
         self.SetActive(true);
     }
 
-    public void CloseRebindingWindow()
+    // TODO: support for scroll mouse up / down
+    // dont use a foreach 
+    private static IEnumerator ListenForInputHandler(Transform self)
+    {
+        var parent = self.parent;
+        var done = false;   
+        while (!done)
+        {
+            foreach (KeyCode key in Enum.GetValues(typeof(KeyCode)))
+            {
+                if (!Input.GetKey(key) || key == KeyCode.None) continue;
+                if (Input.GetKey(KeyCode.BackQuote) || Input.GetKey(KeyCode.Escape))
+                {
+                    done = true;
+                    CloseRebindingWindow();
+                    break;
+                }
+
+                if (!Enum.TryParse(parent.name, true, out Keybinding.ActionType result)) continue;
+
+                if (self.name == "Primary")
+                    InputManager.Actions[result] = new Keybinding { Primary = key, Secondary = InputManager.Actions[result].Secondary};
+                else
+                    InputManager.Actions[result] = new Keybinding { Primary = InputManager.Actions[result].Primary, Secondary = key};
+                self.Find("Text").GetComponent<Text>().text = $"{key}";
+                done = true;
+                CloseRebindingWindow();
+                break;
+            }
+            yield return null;
+        }
+    }
+
+    public static void CloseRebindingWindow()
     {
         var self = singleton.transform.Find("Visible").Find("Rebinding").gameObject;
         self.SetActive(false);

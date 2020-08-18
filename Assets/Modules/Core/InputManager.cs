@@ -20,7 +20,7 @@ public struct Keybinding
         reload
     }
 }
-
+// TODO: implement saving 
 public class InputManager : MonoBehaviour
 {
     public static readonly Dictionary<Keybinding.ActionType, Keybinding> Actions = new Dictionary<Keybinding.ActionType, Keybinding>
@@ -94,7 +94,7 @@ public class InputManager : MonoBehaviour
                 if (MenuOptions.singleton.ConfirmationWindowVisible)
                     MenuOptions.singleton.CloseConfirmationWindow();
                 else if(MenuOptions.singleton.RebindWindowVisible)
-                    MenuOptions.singleton.CloseRebindingWindow();
+                    MenuOptions.CloseRebindingWindow();
                 else
                     MenuOptions.singleton.ToggleMenuCanvas();
             }
