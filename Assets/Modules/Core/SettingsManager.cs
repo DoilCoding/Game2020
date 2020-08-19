@@ -1,27 +1,27 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.XR;
 using Object = UnityEngine.Object;
 
+// obsolete, replace it with Body.Configuration
+//TODO: get rid of this script (cant atm..)
+[Obsolete("Replacing this with Body.Configuration", false)]
 public class SettingsManager : MonoBehaviour
 {
     public static Config CurrentPlayerConfiguration = new Config();
     public static Config RequestedPlayerConfiguration = new Config();
-    public static SettingsManager singleton { get; private set; }
 
     private void Awake()
     {
-        singleton = this;
         CurrentPlayerConfiguration = Config.Load();
         CurrentPlayerConfiguration.Initialize();
         RequestedPlayerConfiguration = CurrentPlayerConfiguration.Clone();
     }
 
-    public void ApplySettings() => RequestedPlayerConfiguration.Apply();
-
-    public void ResetToDefaults()
+    public static void ResetToDefaults()
     {
         Config.Delete();
         RequestedPlayerConfiguration = Config.Load();

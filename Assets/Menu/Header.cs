@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assets.Testing
+namespace Assets.Menu
 {
-    public class UI_august_Options_Header : MonoBehaviour
+    public class Header : MonoBehaviour
     {
         private void Awake()
         {
@@ -70,7 +70,8 @@ namespace Assets.Testing
             _keybindingsGameObject,
             _sliderGameObject;
 
-        [SerializeField] private Button _generalButton,
+        [SerializeField]
+        private Button _generalButton,
             _graphicsButton,
             _audioButton,
             _inputButton,

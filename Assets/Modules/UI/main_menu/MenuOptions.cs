@@ -21,7 +21,7 @@ public class MenuOptions : MonoBehaviour
         transform.Find("Visible").Find("Confirmation").Find("Confirm").GetComponent<Button>().onClick.AddListener(() =>
         {
             CloseConfirmationWindow();
-            SettingsManager.singleton.ResetToDefaults();
+            SettingsManager.ResetToDefaults();
         });
     }
 
@@ -41,7 +41,6 @@ public class MenuOptions : MonoBehaviour
         Console.Log(new NotImplementedException());
     }
 
-    public void ApplySettings() => SettingsManager.singleton.ApplySettings();
     public bool ConfirmationWindowVisible => singleton.transform.Find("Visible").Find("Confirmation").gameObject.activeSelf;
     public bool RebindWindowVisible => singleton.transform.Find("Visible").Find("Rebinding").gameObject.activeSelf;
 
