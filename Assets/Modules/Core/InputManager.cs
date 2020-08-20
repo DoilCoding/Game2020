@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Assets.Menu;
 using UnityEngine;
 using Console = Assets.Modules.Console.Console;
 
@@ -21,19 +22,11 @@ public struct Keybinding
         reload
     }
 }
-// TODO: implement saving 
+
 public class InputManager : MonoBehaviour
 {
-    public static readonly Dictionary<Keybinding.ActionType, Keybinding> Actions = new Dictionary<Keybinding.ActionType, Keybinding>
-        {
-            {Keybinding.ActionType.forward, new Keybinding {Primary = KeyCode.W, Secondary = KeyCode.UpArrow}},
-            {Keybinding.ActionType.left, new Keybinding {Primary = KeyCode.A, Secondary = KeyCode.LeftArrow}},
-            {Keybinding.ActionType.right, new Keybinding {Primary = KeyCode.D, Secondary = KeyCode.RightArrow}},
-            {Keybinding.ActionType.back, new Keybinding {Primary = KeyCode.S, Secondary = KeyCode.DownArrow}},
-            {Keybinding.ActionType.jump, new Keybinding {Primary = KeyCode.Space, Secondary = KeyCode.None}},
-            {Keybinding.ActionType.crouch, new Keybinding {Primary = KeyCode.LeftControl, Secondary = KeyCode.C}},
-            {Keybinding.ActionType.reload, new Keybinding {Primary = KeyCode.R, Secondary = KeyCode.None}},
-        };
+    [SerializeField]
+    public static Dictionary<Keybinding.ActionType, Keybinding> Actions => Configuration.CurrentPlayerSettings.Actions;
 
     public bool GetKey(Keybinding.ActionType actionType)
     {
@@ -49,6 +42,8 @@ public class InputManager : MonoBehaviour
 
     public void Update()
     {
+        if (Actions == null) return;
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (Console.IsVisible)
@@ -59,7 +54,7 @@ public class InputManager : MonoBehaviour
             {
                 if (MenuOptions.singleton.ConfirmationWindowVisible)
                     MenuOptions.singleton.CloseConfirmationWindow();
-                else if(!MenuOptions.singleton.RebindWindowVisible)
+                else if (!MenuOptions.singleton.RebindWindowVisible)
                     MenuOptions.singleton.ToggleMenuCanvas();
             }
         }

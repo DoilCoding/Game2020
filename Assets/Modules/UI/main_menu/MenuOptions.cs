@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Console = Assets.Modules.Console.Console;
 
+[Obsolete]
 public class MenuOptions : MonoBehaviour
 {
     public static MenuOptions singleton { get; private set; }
@@ -56,8 +57,7 @@ public class MenuOptions : MonoBehaviour
         self.SetActive(true);
     }
 
-    // TODO: support for scroll mouse up / down
-    // dont use a foreach 
+    // TODO: support for scroll mouse up / down might just wanna redo this later, its ok for now but suggest we just use if statements for performance.
     private static IEnumerator ListenForInputHandler(Transform self)
     {
         var parent = self.parent;

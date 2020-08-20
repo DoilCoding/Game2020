@@ -6,9 +6,7 @@ using UnityEngine;
 using UnityEngine.XR;
 using Object = UnityEngine.Object;
 
-// obsolete, replace it with Body.Configuration
-//TODO: get rid of this script (cant atm..)
-[Obsolete("Replacing this with Body.Configuration", false)]
+[Obsolete]
 public class SettingsManager : MonoBehaviour
 {
     public static Config CurrentPlayerConfiguration = new Config();

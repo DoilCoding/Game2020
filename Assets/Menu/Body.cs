@@ -1,15 +1,27 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.UI;
+using Console = Assets.Modules.Console.Console;
 
 namespace Assets.Menu
 {
     public class Body : MonoBehaviour
     {
         private static Body singleton;
-        private void Awake() => singleton = this;
-        private void OnEnable() => PopulateMenu();
+        //private void Awake() => singleton = this;
+        private void Awake()
+        {
+            singleton = this;
+
+            //TODO IMPORTANT: TEMPORARY MOVE THIS TO GAME MANAGER
+            Configuration.RequestedPlayerSettings = Config.Load();
+            Configuration.RequestedPlayerSettings.resolution = Screen.resolutions[Screen.resolutions.Length - 1].ToString();
+            Configuration.RequestedPlayerSettings.Apply();
+        }
+        private void OnEnable() => Populate();
         private void OnDisable() =>
             Configuration.RequestedPlayerSettings = Configuration.CurrentPlayerSettings.Clone();
 
@@ -32,6 +44,18 @@ namespace Assets.Menu
                         DropDownHandler(self, Configuration.CurrentPlayerSettings.ShadowQuality, result =>
                             Configuration.RequestedPlayerSettings.ShadowQuality = result);
                         break;
+                    case "Texture Quality":
+                        DropDownHandler(self, Configuration.CurrentPlayerSettings.textureQuality, result =>
+                            Configuration.RequestedPlayerSettings.textureQuality = result);
+                        break;
+                    case "Anti Aliasing":
+                        DropDownHandler(self, Configuration.CurrentPlayerSettings.antiAliasing, result =>
+                            Configuration.RequestedPlayerSettings.antiAliasing = result);
+                        break;
+                    case "Anisotropic Filtering":
+                        DropDownHandler(self, Configuration.CurrentPlayerSettings.anisotropicFiltering, result =>
+                            Configuration.RequestedPlayerSettings.anisotropicFiltering = result);
+                        break;
                     default:
                         Debug.LogError(new NotImplementedException($"{self.name} was not in the list"));
                         break;
@@ -39,7 +63,7 @@ namespace Assets.Menu
             }
         }
 
-        public static void PopulateMenu()
+        public static void Populate()
         {
             SetSetting(singleton._generalGameObject.transform);
             SetSetting(singleton._graphicsGameObject.transform);
@@ -101,28 +125,5 @@ namespace Assets.Menu
             _inputGameObject,
             _keybindingsGameObject;
 #pragma warning restore 649
-    }
-
-
-    // replace SettingManager with this one
-    public static class Configuration
-    {
-        private static Config _currentPlayerSettings;
-        public static Config CurrentPlayerSettings => // ReSharper disable once ConvertToNullCoalescingCompoundAssignment
-            _currentPlayerSettings ?? (_currentPlayerSettings = Config.Load());
-
-        private static Config _requestedPlayerSettings;
-        public static Config RequestedPlayerSettings { // ReSharper disable once ConvertToNullCoalescingCompoundAssignment
-            get => _requestedPlayerSettings ?? (_requestedPlayerSettings = CurrentPlayerSettings.Clone());
-            set => _requestedPlayerSettings = value;
-        }
-
-        public static void ResetToDefaults()
-        {
-            RequestedPlayerSettings = new Config {
-                resolution = Screen.resolutions[Screen.resolutions.Length - 1].ToString()};
-            RequestedPlayerSettings.Apply();
-            Body.PopulateMenu();
-        }
     }
 }

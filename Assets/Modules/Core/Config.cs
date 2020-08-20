@@ -5,6 +5,7 @@ using UnityEngine;
 using Console = Assets.Modules.Console.Console;
 
 [Serializable]
+[Obsolete]
 public class Config : IEquatable<Config>
 {
     public bool Equals(Config other)
@@ -65,7 +66,6 @@ public class Config : IEquatable<Config>
     public enum inputMode { Toggle, Hold }
     #endregion
 
-    //TODO: remove this, we don't need to delete it.
     public static void Delete()
     {
         if (!File.Exists(Application.persistentDataPath + "/save.cfg")) return;
@@ -226,7 +226,6 @@ public class Config : IEquatable<Config>
         return result;
     }
 
-    //TODO: do we need Apply AND Init ? seems kinda.. double? no?
     public void Apply()
     {
         #region Graphics

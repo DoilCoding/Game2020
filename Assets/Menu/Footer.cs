@@ -18,8 +18,8 @@ namespace Assets.Menu
 
         public void OnResetToDefaults()
         {
+            // TODO: needs confirmation button which does the following
             Configuration.ResetToDefaults();
-            Body.PopulateMenu();
         }
 
 

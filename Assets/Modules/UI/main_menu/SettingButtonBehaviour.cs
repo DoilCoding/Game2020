@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Console = Assets.Modules.Console.Console;
 
-//TODO: implement saving keybindings
+[Obsolete]
 public class SettingButtonBehaviour : MonoBehaviour
 {
     private void DropDownHandler<T>(T current, Action<T> handler) where T : struct
