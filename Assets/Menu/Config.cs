@@ -190,8 +190,9 @@ namespace Assets.Menu
         {
             {Keybinding.ActionType.forward, new Keybinding {Primary = KeyCode.W, Secondary = KeyCode.UpArrow}},
             {Keybinding.ActionType.left, new Keybinding {Primary = KeyCode.A, Secondary = KeyCode.LeftArrow}},
-            {Keybinding.ActionType.right, new Keybinding {Primary = KeyCode.D, Secondary = KeyCode.RightArrow}},
             {Keybinding.ActionType.back, new Keybinding {Primary = KeyCode.S, Secondary = KeyCode.DownArrow}},
+            {Keybinding.ActionType.right, new Keybinding {Primary = KeyCode.D, Secondary = KeyCode.RightArrow}},
+            {Keybinding.ActionType.sprint, new Keybinding {Primary = KeyCode.LeftShift, Secondary = KeyCode.RightShift}},
             {Keybinding.ActionType.jump, new Keybinding {Primary = KeyCode.Space, Secondary = KeyCode.None}},
             {Keybinding.ActionType.crouch, new Keybinding {Primary = KeyCode.LeftControl, Secondary = KeyCode.C}},
             {Keybinding.ActionType.reload, new Keybinding {Primary = KeyCode.R, Secondary = KeyCode.None}},

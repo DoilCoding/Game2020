@@ -10,21 +10,26 @@ namespace Assets.Menu
         {
             _applyButton.onClick.AddListener(OnApply);
             _cancelButton.onClick.AddListener(OnCancel);
-            _resetToDefaultsButton.onClick.AddListener(OnResetToDefaults);
+
+            _resetToDefaultsButton.onClick.AddListener(ShowConfirmationResetToDefaults);
+
+            _confirmationContainerGameObject.transform.Find("Accept_Background").Find("Accept").GetComponent<Button>().onClick.AddListener(() =>
+            {
+                Configuration.ResetToDefaults();
+                HideConfirmationResetToDefaults();
+            });
+            _confirmationContainerGameObject.transform.Find("Cancel_Background").Find("Cancel").GetComponent<Button>().onClick.AddListener(HideConfirmationResetToDefaults);
         }
 
         public void OnApply() => Configuration.RequestedPlayerSettings.Apply();
         public void OnCancel() => _menuContainerGameObject.SetActive(false);
 
-        public void OnResetToDefaults()
-        {
-            // TODO: needs confirmation button which does the following
-            Configuration.ResetToDefaults();
-        }
+        public void ShowConfirmationResetToDefaults() => _confirmationContainerGameObject.SetActive(true);
+        public void HideConfirmationResetToDefaults() => _confirmationContainerGameObject.SetActive(false);
 
 
 #pragma warning disable 649
-        [SerializeField] private GameObject _menuContainerGameObject;
+        [SerializeField] private GameObject _menuContainerGameObject, _confirmationContainerGameObject;
         [SerializeField]
         private Button _applyButton,
             _cancelButton,

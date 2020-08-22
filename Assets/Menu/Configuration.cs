@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace Assets.Menu
 {
@@ -15,6 +18,42 @@ namespace Assets.Menu
             };
             RequestedPlayerSettings.Apply();
             Body.Populate();
+        }
+
+        public static IEnumerator ListenForInputHandler(Transform self)
+        {
+            var parent = self.parent;
+            var done = false;
+            while (!done)
+            {
+                foreach (KeyCode key in Enum.GetValues(typeof(KeyCode)))
+                {
+                    // if rebinding window is closed then done is true
+                    if (!Input.GetKey(key) || key == KeyCode.None) continue;
+                    if (Input.GetKey(KeyCode.BackQuote))
+                    {
+                        done = true;
+                        //CloseRebindingWindow();
+                        break;
+                    }
+
+                    var _key = key;
+                    if (Input.GetKey(KeyCode.Escape))
+                        _key = KeyCode.None;
+
+                    if (!Enum.TryParse(parent.name, true, out Keybinding.ActionType result)) continue;
+
+                    if (self.name == "Primary")
+                        InputManager.Actions[result] = new Keybinding { Primary = _key, Secondary = InputManager.Actions[result].Secondary };
+                    else
+                        InputManager.Actions[result] = new Keybinding { Primary = InputManager.Actions[result].Primary, Secondary = _key };
+                    self.Find("Text").GetComponent<Text>().text = $"{_key}";
+                    done = true;
+                    //CloseRebindingWindow();
+                    break;
+                }
+                yield return null;
+            }
         }
     }
 }

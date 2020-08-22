@@ -19,11 +19,12 @@ public struct Keybinding
         back,
         jump,
         crouch,
-        reload
+        reload,
+        sprint
     }
 }
 
-public class InputManager : MonoBehaviour
+public class InputManager
 {
     [SerializeField]
     public static Dictionary<Keybinding.ActionType, Keybinding> Actions => Configuration.CurrentPlayerSettings.Actions;
@@ -46,21 +47,21 @@ public class InputManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (Console.IsVisible)
-            {
-                Console.ToggleConsoleCanvas();
-            }
-            else if (MenuOptions.IsVisible)
-            {
-                if (MenuOptions.singleton.ConfirmationWindowVisible)
-                    MenuOptions.singleton.CloseConfirmationWindow();
-                else if (!MenuOptions.singleton.RebindWindowVisible)
-                    MenuOptions.singleton.ToggleMenuCanvas();
-            }
+            //if (Console.IsVisible)
+            //{
+            //    Console.ToggleConsoleCanvas();
+            //}
+            //else if (MenuOptions.IsVisible)
+            //{
+            //    if (MenuOptions.singleton.ConfirmationWindowVisible)
+            //        MenuOptions.singleton.CloseConfirmationWindow();
+            //    else if (!MenuOptions.singleton.RebindWindowVisible)
+            //        MenuOptions.singleton.ToggleMenuCanvas();
+            //}
         }
         else if (Input.GetKeyDown(KeyCode.BackQuote))
         {
-            Console.ToggleConsoleCanvas();
+            //Console.ToggleConsoleCanvas();
         }
     }
 }

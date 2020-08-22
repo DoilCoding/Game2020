@@ -11,8 +11,8 @@ using Debug = UnityEngine.Debug;
 namespace Assets.Modules.Console
 {
     //TODO: redo the ui elements with the new knowledge we got.
-    //TODO: optimize, disable objects when not on screen.
-    //TODO: Console.SetOut
+    //optimize, disable objects when not on screen.
+    //Console.SetOut
     public class Console : MonoBehaviour
     {
         public static void Log(object message, [CallerLineNumber] int sourceLineNumber = 0, [CallerFilePath] string sourceFilePath = "")
@@ -43,7 +43,7 @@ namespace Assets.Modules.Console
                 Singleton.gameObject.transform.Find("Panel").Find("Scrollbar").GetComponent<Scrollbar>()
                     .value = 0f;
         }
-        // mouse exiut screen
+
 
         public void Clear()
         {
@@ -52,7 +52,6 @@ namespace Assets.Modules.Console
             ConsoleLines.Clear();
         }
 
-        //TODO: Save txt file to game content folder and set name to datetime now as unix timestamp
         public void Save()
         {
             throw new NotImplementedException();
