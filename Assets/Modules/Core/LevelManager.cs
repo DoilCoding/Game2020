@@ -10,7 +10,7 @@ using Console = Assets.Modules.Console;
 
 public class LevelManager : MonoBehaviour
 {
-    private async void Awake()
+    private void Awake()
     {
         Screen.fullScreenMode = FullScreenMode.ExclusiveFullScreen;
         singleton = this;
@@ -26,12 +26,7 @@ public class LevelManager : MonoBehaviour
 
     private async void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (string.Equals(scene.name, "splashscreen", System.StringComparison.OrdinalIgnoreCase))
-        {
-            //await Task.Delay(2000);
-            await Task.Delay(1);
-            await LoadNewScene("mainscreen");
-        }
+        await Task.Delay(0);
     }
 
     private CancellationTokenSource cts;
@@ -60,7 +55,6 @@ public class LevelManager : MonoBehaviour
 
 #pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
     private async Task PerformSceneLoading(string sceneName, CancellationToken token)
-#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
     {
         token.ThrowIfCancellationRequested();
         if (token.IsCancellationRequested)

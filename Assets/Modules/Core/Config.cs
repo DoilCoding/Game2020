@@ -37,7 +37,7 @@ namespace Assets.Modules.Core
         public void DebugSettings() => DebugSettings(this);
         public static void DebugSettings(Config config)
         {
-            Console.Log($"<color=green>Loaded</color> Config Result:\n" +
+            Console.Log($"Config:\n" +
                            "<color=purple>Graphics Settings</color>\n" +
                            $"FullscreenMode: {config.fullScreenMode}\n" +
                            $"Resolution: {config.resolution}\n" +
@@ -92,7 +92,6 @@ namespace Assets.Modules.Core
             {
                 file?.Close();
             }
-            DebugSettings(result);
             return result;
         }
 
