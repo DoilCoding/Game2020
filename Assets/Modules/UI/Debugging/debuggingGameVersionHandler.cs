@@ -10,6 +10,7 @@ public class debuggingGameVersionHandler : MonoBehaviour
 {
     private void Awake()
     {
+        DontDestroyOnLoad(gameObject.transform.parent.parent.gameObject);
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 

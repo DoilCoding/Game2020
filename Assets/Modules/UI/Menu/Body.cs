@@ -1,25 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using JetBrains.Annotations;
+using Assets.Menu;
+using Assets.Modules.Core;
 using UnityEngine;
 using UnityEngine.UI;
+using Console = Assets.Modules.Console;
 
-namespace Assets.Menu
+namespace Assets.Modules
 {
     public class Body : MonoBehaviour
     {
-        private static Body _singleton;
-        //private void Awake() => _singleton = this;
-        // TODO: temporary
-        private void Awake()
-        {
-            _singleton = this;
-            Configuration.RequestedPlayerSettings = Config.Load();
-            if (Configuration.RequestedPlayerSettings.resolution == string.Empty)
-                Configuration.RequestedPlayerSettings.resolution = Screen.resolutions[Screen.resolutions.Length - 1].ToString();
-            Configuration.RequestedPlayerSettings.Apply();
-        }
+        public static Body Singleton;
+        private void Awake() => Singleton = this;
         private void OnEnable() => Populate();
         private void OnDisable() => Configuration.RequestedPlayerSettings = Configuration.CurrentPlayerSettings.Clone();
 
@@ -55,7 +47,7 @@ namespace Assets.Menu
                             Configuration.RequestedPlayerSettings.fieldOfView = Convert.ToInt32(result));
                         break;
                     case "Colorblind Mode":
-                        Debug.Log(new NotImplementedException());
+                        Modules.Console.Log(new NotImplementedException());
                         break;
                     #endregion
 
@@ -128,11 +120,6 @@ namespace Assets.Menu
                     #endregion
 
                     #region keybindings
-                    #endregion
-
-
-
-
                     case "Forward":
                         RebindHandler(self);
                         break;
@@ -154,8 +141,10 @@ namespace Assets.Menu
                     case "Crouch":
                         RebindHandler(self);
                         break;
+                    #endregion
+
                     default:
-                        Debug.LogError(new NotImplementedException($"{self.name} was not in the list"));
+                        Console.Log(new NotImplementedException($"{self.name} was not in the list"));
                         break;
                 }
             }
@@ -163,11 +152,11 @@ namespace Assets.Menu
 
         public static void Populate()
         {
-            _singleton.Populate(_singleton._generalGameObject.transform);
-            _singleton.Populate(_singleton._graphicsGameObject.transform);
-            _singleton.Populate(_singleton._audioGameObject.transform);
-            _singleton.Populate(_singleton._inputGameObject.transform);
-            _singleton.Populate(_singleton._keybindingsGameObject.transform);
+            Singleton.Populate(Singleton._generalGameObject.transform);
+            Singleton.Populate(Singleton._graphicsGameObject.transform);
+            Singleton.Populate(Singleton._audioGameObject.transform);
+            Singleton.Populate(Singleton._inputGameObject.transform);
+            Singleton.Populate(Singleton._keybindingsGameObject.transform);
         }
         private static void ToggleHandler(Transform self, Action<bool> callBackAction)
         {
@@ -219,7 +208,6 @@ namespace Assets.Menu
             });
         }
 
-        //TODO: popup screen
         private void RebindHandler(Transform self)
         {
             var primary = self.Find("Primary").GetComponent<Button>();
@@ -237,17 +225,18 @@ namespace Assets.Menu
             primary.onClick.RemoveAllListeners();
             primary.onClick.AddListener(() =>
             {
-                // open menu
+                Options.ShowKeybindingPopup();
                 StartCoroutine(Configuration.ListenForInputHandler(primary.transform));
             });
 
             secondary.onClick.RemoveAllListeners();
             secondary.onClick.AddListener(() =>
             {
-                // open menu
+                Options.ShowKeybindingPopup();
                 StartCoroutine(Configuration.ListenForInputHandler(secondary.transform));
             });
         }
+
 
 #pragma warning disable 649
         [SerializeField]

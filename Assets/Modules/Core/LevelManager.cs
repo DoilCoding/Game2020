@@ -6,14 +6,15 @@ using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Console = Assets.Modules.Console.Console;
+using Console = Assets.Modules.Console;
 
 public class LevelManager : MonoBehaviour
 {
-    private void Awake()
+    private async void Awake()
     {
         Screen.fullScreenMode = FullScreenMode.ExclusiveFullScreen;
         singleton = this;
+        DontDestroyOnLoad(this.gameObject);
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
@@ -35,7 +36,7 @@ public class LevelManager : MonoBehaviour
 
     private CancellationTokenSource cts;
 
-    private async Task LoadNewScene(string sceneName)
+    public async Task LoadNewScene(string sceneName)
     {
         if (cts == null)
         {
