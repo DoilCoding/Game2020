@@ -33,17 +33,35 @@ public class ProjectManager : EditorWindow
             Scenes[scenesValue] = EditorGUILayout.Toggle(scenesValue, Scenes[scenesValue]);
         }
 
-        if (GUILayout.Button("Build Project"))
+        GUILayout.BeginHorizontal();
+        if (GUILayout.Button("Build Client"))
         {
             var scenes = Scenes.Where(x => x.Value).Select(x => $@"Assets\Resources\Scenes\{x.Key}.unity").ToArray();
             BuildPipeline.BuildPlayer(
                 scenes,
-                @"F:\Users\Administrator\Dayz\Builds\Dayz.exe",
-                BuildTarget.StandaloneWindows,
+                @"F:\Users\Administrator\Dayz\Builds\Client\Dayz.exe",
+                BuildTarget.StandaloneWindows64,
                 BuildOptions.None);
         }
+        if (GUILayout.Button("Build Server"))
+        {
+            var scenes = Scenes.Where(x => x.Value).Select(x => $@"Assets\Resources\Scenes\{x.Key}.unity").ToArray();
+            BuildPipeline.BuildPlayer(
+                scenes,
+                @"F:\Users\Administrator\Dayz\Builds\Server\Dayz.exe",
+                BuildTarget.StandaloneWindows64,
+                BuildOptions.EnableHeadlessMode);
+        }
+        GUILayout.EndHorizontal();
 
+        GUILayout.BeginHorizontal();
+        GUI.backgroundColor = Color.green;
         if (GUILayout.Button("Run Client"))
-            System.Diagnostics.Process.Start("explorer.exe", @"/start, F:\Users\Administrator\Dayz\Builds\Dayz.exe");
+            System.Diagnostics.Process.Start(@"F:\Users\Administrator\Dayz\Builds\Client\Dayz.exe");
+
+        GUI.backgroundColor = Color.magenta;
+        if (GUILayout.Button("Run Server"))
+            System.Diagnostics.Process.Start(@"F:\Users\Administrator\Dayz\Builds\Dayz.exe", " -batchmode -nographics");
+        GUILayout.EndHorizontal();
     }
 }

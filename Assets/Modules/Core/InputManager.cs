@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Assets.Menu;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using Console = Assets.Modules.Console;
 
 namespace Assets.Modules.Core
@@ -70,6 +71,29 @@ namespace Assets.Modules.Core
             else if (Input.GetKeyDown(KeyCode.BackQuote))
             {
                 Console.ToggleConsoleCanvas();
+            }
+
+            if (Input.GetKeyDown(KeyCode.Return) && Console.IsVisible && EventSystem.current.currentSelectedGameObject.transform == Console.InputField.transform)
+            {
+                Console.SendButton.onClick.Invoke();
+                Console.InputField.Select();
+                Console.InputField.ActivateInputField();
+                Console.selectedConsoleLine = Console.PreviousConsoleLines.Count - 1;
+            }
+
+            if (Input.GetKeyDown(KeyCode.DownArrow) && Console.IsVisible && EventSystem.current.currentSelectedGameObject.transform == Console.InputField.transform)
+            {
+                if (Console.PreviousConsoleLines.Count == 0) return;
+                Console.selectedConsoleLine++;
+                Console.selectedConsoleLine = Mathf.Clamp(Console.selectedConsoleLine, 0, Console.PreviousConsoleLines.Count - 1);
+                Console.InputField.text = Console.PreviousConsoleLines[Console.selectedConsoleLine];
+            }
+            else if (Input.GetKeyDown(KeyCode.UpArrow) && Console.IsVisible && EventSystem.current.currentSelectedGameObject.transform == Console.InputField.transform)
+            {
+                if (Console.PreviousConsoleLines.Count == 0) return;
+                Console.selectedConsoleLine--;
+                Console.selectedConsoleLine = Mathf.Clamp(Console.selectedConsoleLine, 0, Console.PreviousConsoleLines.Count - 1);
+                Console.InputField.text = Console.PreviousConsoleLines[Console.selectedConsoleLine];
             }
         }
     }
