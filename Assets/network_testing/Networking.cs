@@ -1,18 +1,18 @@
-﻿//using System;
-//using System.Collections;
-//using System.Collections.Generic;
-//using System.Diagnostics.CodeAnalysis;
-//using UnityEngine;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using UnityEngine;
 
-//namespace Assets.network_testing
-//{
-//    public abstract class Networking
-//    {
-//        public bool IsClient => Application.isBatchMode;
-//        public bool IsServer => !IsClient;
+namespace Assets.network_testing
+{
+    public abstract class Networking
+    {
 
-//        public static Dictionary<bool, Player> PlayerList { get; } = new Dictionary<bool, Player>();
-//    }
+
+
+    }
+}
 
 //    [SuppressMessage("ReSharper", "InconsistentNaming")]
 //    public class Player

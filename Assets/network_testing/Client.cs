@@ -1,11 +1,11 @@
-﻿//using System.Collections;
-//using System.Collections.Generic;
-//using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-//namespace Assets.network_testing
-//{
-//    public class Client : Networking
-//    {
+namespace Assets.network_testing
+{
+    public class Client : Networking
+    {
 
-//    }
-//}
+    }
+}

@@ -51,16 +51,13 @@ namespace Assets
             //Debug.Log(s1);
 
 
-
-
-
-
+            if (!IsClient) return;
 
             InputManager = new InputManager();
             Configuration.RequestedPlayerSettings = Config.Load();
             if (string.IsNullOrEmpty(Configuration.RequestedPlayerSettings.resolution))
-                Configuration.RequestedPlayerSettings.resolution = Screen.resolutions[Screen.resolutions.Length - 1].ToString();
-
+                Configuration.RequestedPlayerSettings.resolution =
+                    Screen.resolutions[Screen.resolutions.Length - 1].ToString();
             await Configuration.RequestedPlayerSettings.Apply();
             await LevelManager.singleton.LoadNewScene("1.Main");
         }
@@ -98,5 +95,7 @@ namespace Assets
         public static GameManager Singleton { get; private set; }
         public static InputManager InputManager { get; private set; }
         //public static Networking Networking { get; private set; }
+        public bool IsClient => !Application.isBatchMode;
+        public bool IsServer => !IsClient;
     }
 }

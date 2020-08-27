@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
@@ -57,11 +58,11 @@ public class ProjectManager : EditorWindow
         GUILayout.BeginHorizontal();
         GUI.backgroundColor = Color.green;
         if (GUILayout.Button("Run Client"))
-            System.Diagnostics.Process.Start(@"F:\Users\Administrator\Dayz\Builds\Client\Dayz.exe");
+            Process.Start(@"F:\Users\Administrator\Dayz\Builds\Client\Dayz.exe");
 
         GUI.backgroundColor = Color.magenta;
         if (GUILayout.Button("Run Server"))
-            System.Diagnostics.Process.Start(@"F:\Users\Administrator\Dayz\Builds\Dayz.exe", " -batchmode -nographics");
+            Process.Start(@"F:\Users\Administrator\Dayz\Builds\Server\Dayz.exe");
         GUILayout.EndHorizontal();
     }
 }

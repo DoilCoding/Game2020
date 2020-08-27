@@ -40,6 +40,7 @@ namespace Assets.Modules
 
             if (!Singleton.gameObject.GetComponent<Canvas>().enabled)
                 Singleton.gameObject.transform.Find("Panel").Find("Scrollbar").GetComponent<Scrollbar>().value = 0f;
+            System.Console.WriteLine($"{source}: {text}");
         }
 
 
@@ -55,11 +56,10 @@ namespace Assets.Modules
             throw new NotImplementedException();
         }
 
-        public static bool IsVisible => Singleton.transform.GetChild(0).gameObject.activeSelf;        //public static bool IsVisible => Singleton.gameObject.GetComponent<Canvas>().enabled;
+        public static bool IsVisible => Singleton.transform.GetChild(0).gameObject.activeSelf;
 
         public static void ToggleConsoleCanvas()
         {
-            //Singleton.gameObject.GetComponent<Canvas>().enabled = !Singleton.gameObject.GetComponent<Canvas>().isActiveAndEnabled;
             Singleton.transform.GetChild(0).gameObject.SetActive(!Singleton.transform.GetChild(0).gameObject.activeSelf);
             Singleton.transform.GetChild(1).gameObject.SetActive(!Singleton.transform.GetChild(1).gameObject.activeSelf);
             if (Singleton.gameObject.GetComponent<Canvas>().enabled)
@@ -106,7 +106,7 @@ namespace Assets.Modules
         {
             if (string.IsNullOrEmpty(msg)) return;
             PreviousConsoleLines.Add(msg);
-            string cmd = msg.Split(new[] { " " }, StringSplitOptions.None)[0].ToLower();
+            var cmd = msg.Split(new[] { " " }, StringSplitOptions.None)[0].ToLower();
             if (validCommand(cmd))
             {
                 //Write("Running:", msg);
@@ -166,12 +166,10 @@ namespace Assets.Modules
         private static readonly List<GameObject> ConsoleLines = new List<GameObject>();
         private static readonly int _maxLines = 100;
 
-
-
-
         private static readonly Dictionary<string, Command> Commands = new Dictionary<string, Command>
         {
-            {"quit", new Command{ Description = "Quit the game", Function = (cmd) => {
+            {"quit", new Command
+            { Description = "Quit the game", Function = (cmd) => {
 #if !UNITY_EDITOR
         Application.Quit();
 #else
@@ -179,8 +177,8 @@ namespace Assets.Modules
 #endif
             }
             }},
-            {"connect", new Command{ Description = "Connect to a specified IP and Port {Connect ConnectionIP:Port}", Function =
-                (cmd) =>
+            {"connect", new Command
+            {Description = "Connect to a specified IP and Port {Connect ConnectionIP:Port}", Function = (cmd) =>
                 {
                     if (string.IsNullOrEmpty(cmd))
                     {
@@ -220,14 +218,16 @@ namespace Assets.Modules
                     Write("", $"{new NotImplementedException($"Host {port}")}");
 
                 }}},
-            {"help", new Command{Description = "Display all the commands", Function = (cmd) =>
+            {"help", new Command
+            {Description = "Display all the commands", Function = (cmd) =>
             {
                 Write("Console",$"A total of {Console.Commands.Count} commands exist currently");
                 foreach (var cmds in Console.Commands){
                     Write("[help]",$"[{cmds.Key}] -> {cmds.Value.Description}");
                 }
             }}},
-            {"clear", new Command{Description = "Clear the console", Function = (cmd) =>
+            {"clear", new Command
+            {Description = "Clear the console", Function = (cmd) =>
             {
                 Singleton.Clear();
             }}}
