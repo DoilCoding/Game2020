@@ -98,6 +98,9 @@ namespace Assets.Modules
                 _inputField.text = string.Empty;
 
             });
+
+            _clearButton.onClick.AddListener(Clear);
+
             Application.logMessageReceivedThreaded += LogMessagesHandler;
         }
         private void OnApplicationQuit() => Application.logMessageReceivedThreaded -= LogMessagesHandler;
@@ -154,6 +157,8 @@ namespace Assets.Modules
         [SerializeField] [NotNull] private Transform _contentTransform;
         // ReSharper disable once NotNullMemberIsNotInitialized
         [SerializeField] [NotNull] private Button _sendButton;
+        // ReSharper disable once NotNullMemberIsNotInitialized
+        [SerializeField] [NotNull] private Button _clearButton;
         // ReSharper disable once NotNullMemberIsNotInitialized
         [SerializeField] [NotNull] private InputField _inputField;
 #pragma warning restore 649

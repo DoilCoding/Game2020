@@ -37,18 +37,21 @@ public class ProjectManager : EditorWindow
         GUILayout.BeginHorizontal();
         if (GUILayout.Button("Build Client"))
         {
-            var scenes = Scenes.Where(x => x.Value).Select(x => $@"Assets\Resources\Scenes\{x.Key}.unity").ToArray();
+            var scenes = Scenes.Where(x => x.Value).Select(x => $@"Assets\Resources\Scenes\{x.Key}.unity").ToList();
+            scenes.Insert(0, @"Assets\Resources\Scenes\StartClient.unity");
+            scenes.Insert(1, @"Assets\Resources\Scenes\1.Main.unity");
             BuildPipeline.BuildPlayer(
-                scenes,
+                scenes.ToArray(),
                 @"F:\Users\Administrator\Dayz\Builds\Client\Dayz.exe",
                 BuildTarget.StandaloneWindows64,
                 BuildOptions.None);
         }
         if (GUILayout.Button("Build Server"))
         {
-            var scenes = Scenes.Where(x => x.Value).Select(x => $@"Assets\Resources\Scenes\{x.Key}.unity").ToArray();
+            var scenes = Scenes.Where(x => x.Value).Select(x => $@"Assets\Resources\Scenes\{x.Key}.unity").ToList();
+            scenes.Insert(0, @"Assets\Resources\Scenes\StartServer.unity");
             BuildPipeline.BuildPlayer(
-                scenes,
+                scenes.ToArray(),
                 @"F:\Users\Administrator\Dayz\Builds\Server\Dayz.exe",
                 BuildTarget.StandaloneWindows64,
                 BuildOptions.EnableHeadlessMode);
